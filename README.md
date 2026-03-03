@@ -217,6 +217,23 @@ Let's cover what each of these environment variables does:
 
 For in depth documentation, consult the [LangGraph Next.js API Passthrough](https://www.npmjs.com/package/langgraph-nextjs-api-passthrough) docs.
 
+### Deploying to AWS Amplify
+
+This project includes an `amplify.yml` build specification for deployment to [AWS Amplify Hosting](https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html).
+
+**Steps to deploy:**
+
+1. Connect your repository to AWS Amplify (Console → Create new app → Connect Git repository).
+2. Select **Next** as the framework when prompted.
+3. Amplify will use the `amplify.yml` in the repo root for build settings.
+4. Configure environment variables in Amplify Console (App settings → Environment variables):
+   - `NEXT_PUBLIC_ASSISTANT_ID` – Your assistant/graph ID
+   - `NEXT_PUBLIC_API_URL` – Your Amplify app URL + `/api` (e.g. `https://your-app-id.amplifyapp.com/api`)
+   - `LANGGRAPH_API_URL` – Your LangGraph server deployment URL (for API passthrough)
+   - `LANGSMITH_API_KEY` – Your LangSmith API key (for API passthrough)
+
+5. Save and deploy. Amplify will run `pnpm install` and `pnpm run build` automatically.
+
 ### Advanced Setup - Custom Authentication
 
 Custom authentication in your LangGraph deployment is an advanced, and more robust way of authenticating requests to your LangGraph server. Using custom authentication, you can allow requests to be made from the client, without the need for a LangSmith API key. Additionally, you can specify custom access controls on requests.
