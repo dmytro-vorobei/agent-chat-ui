@@ -6,6 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/langchain-ai/agent-chat-ui.git"
   },
+  "type": "module",
   "private": true,
   "version": "0.0.0",
   "scripts": {
