@@ -223,9 +223,10 @@ This project includes an `amplify.yml` build specification for deployment to [AW
 
 **Steps to deploy:**
 
-1. Connect your repository to AWS Amplify (Console → Create new app → Connect Git repository).
-2. Select **Next** as the framework when prompted.
-3. Amplify will use the `amplify.yml` in the repo root for build settings.
+1. In AWS Amplify Console, choose **Create new app** → Connect your Git repository.
+2. **Important:** On the "Start building with Amplify" page, after selecting your Git provider, choose **Next** (not React, Other, or Monorepo). This sets Framework to Next.js and enables SSR—required for API routes and server-side rendering.
+3. Connect your repository and branch, then create/attach a service role when prompted.
+4. Amplify will use the `amplify.yml` in the repo root for build settings.
 4. Configure environment variables in Amplify Console (App settings → Environment variables):
    - `NEXT_PUBLIC_ASSISTANT_ID` – Your assistant/graph ID
    - `NEXT_PUBLIC_API_URL` – Your Amplify app URL + `/api` (e.g. `https://your-app-id.amplifyapp.com/api`)
@@ -233,6 +234,14 @@ This project includes an `amplify.yml` build specification for deployment to [AW
    - `LANGSMITH_API_KEY` – Your LangSmith API key (for API passthrough)
 
 5. Save and deploy. Amplify will run `pnpm install` and `pnpm run build` automatically.
+
+**If Framework shows "None" and SSR is Disabled:** You likely connected the repo without selecting Next. Either recreate the app and choose **Next** when prompted, or fix the existing app via AWS CLI:
+
+```bash
+aws amplify update-app --app-id <your-app-id> --platform WEB_COMPUTE --region <your-region>
+```
+
+Then add a service role in App settings → General → Edit.
 
 ### Advanced Setup - Custom Authentication
 
